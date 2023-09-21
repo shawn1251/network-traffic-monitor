@@ -1,15 +1,14 @@
 # Network Monitor
+
+<img src='https://raw.githubusercontent.com/shawn1251/network-traffic-monitor/master/demo.gif'>
+
 ## Overview
 Network Monitor is a WPF GUI application developed in C# that uses Windows Management Instrumentation (WMI) to retrieve network interface information and real-time network traffic data. It provides a user-friendly interface for monitoring and visualizing network traffic rates in kilobytes per second (KB/s).
-![](https://hackmd.io/_uploads/ByUp8utJp.gif)
 
 ## Features
-
-	1. Network Interface Discovery: Network Monitor uses WMI to discover available network interfaces on your system.
-
-	2. Real-Time Traffic Rate: The application updates and displays real-time data for both sent and received network traffic rates in KB/s.
-
-	3. Interactive Visualization: Network traffic rates are visualized using the LiveCharts library, providing an interactive and dynamic charting experience.
+1. Network Interface Discovery: Network Monitor uses WMI to discover available network interfaces on your system.
+2. Real-Time Traffic Rate: The application updates and displays real-time data for both sent and received network traffic rates in KB/s.
+3. Interactive Visualization: Network traffic rates are visualized using the LiveCharts library, providing an interactive and dynamic charting experience.
 
 ## Tools and Technologies
 
