@@ -4,6 +4,12 @@ using System.Diagnostics;
 using System.Windows.Input;
 using System.Management;
 using System.Security.Cryptography;
+using LiveCharts;
+using static network_monitor.Views.MainPage;
+using LiveCharts.Configurations;
+using LiveCharts.Wpf;
+using System.Runtime.Serialization;
+using LiveCharts.Defaults;
 
 namespace network_monitor.ViewModels;
 public class MainViewModel : ObservableObject
@@ -12,12 +18,29 @@ public class MainViewModel : ObservableObject
     public NetworkInterface DataNetworkInterface { get; } = new NetworkInterface();
     public MainViewModel()
     {
-
+        
     }
 }
+
 public class NetworkInterface : ObservableObject
 {
+    public SeriesCollection SeriesCollection { get; set; }
+    public NetworkInterface()
+    {
+        var mapper = Mappers.Xy<ObservablePoint>()
+                .X(point => point.X)
+                .Y(point => point.Y);
+        SeriesCollection = new SeriesCollection(mapper)
+        {
+            new LineSeries
+            {
+                Title = "TransferRate",
+                Values = new ChartValues<ObservablePoint> { }
+            }
+        };
+    }
     public Dictionary<string, string> InterfaceList { get; set; } = new Dictionary<string, string> ();
+    
     private string selectedInterface = "<select an interface>";
     public string SelectedInterface
     {
@@ -104,7 +127,7 @@ public class NetworkInterface : ObservableObject
         
         ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
         ulong accumulatedDataSize = 0;
-
+        double accumulatedTime = 0;
         while (isMonitoringTraffic)
         {
             ManagementObjectCollection queryCollection = searcher.Get();
@@ -116,11 +139,16 @@ public class NetworkInterface : ObservableObject
                 ReceivedRate = $"{changeRateUnit(bytesReceived)}/s";
                 SendRate = $"{changeRateUnit(bytesSent)}/s";
                 
-                accumulatedDataSize += bytesReceived;
-                accumulatedDataSize += bytesSent;
+                ulong tmpTotal = bytesReceived + bytesSent ;
+                accumulatedDataSize += tmpTotal;
+                accumulatedTime += 1;
+                if (this.SeriesCollection[0].Values.Count >= 10) 
+                {
+                    this.SeriesCollection[0].Values.RemoveAt(0);
+                }
+                this.SeriesCollection[0].Values.Add(new ObservablePoint(accumulatedTime, Math.Round((double)tmpTotal / 1024, 2)));
 
                 TotalData = $"{changeRateUnit(accumulatedDataSize)}";
-                Debug.WriteLine($"{bytesReceived} {bytesSent}");
             }
 
             // Sleep for a specified interval before checking again (e.g., every 1 second)

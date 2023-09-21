@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:network_monitor.Properties"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:vm="clr-namespace:network_monitor.ViewModels"
     x:Class="network_monitor.Views.MainPage"
     Style="{DynamicResource MahApps.Styles.Page}"
@@ -38,6 +39,8 @@
             <TextBox x:Name="totalTraffic" HorizontalAlignment="Left" Margin="119,218,0,0" TextWrapping="Wrap" Text="{Binding DataNetworkInterface.TotalData}" VerticalAlignment="Top" Width="120"/>
             <Label x:Name="totalTrafficLabel" Content="Total:" HorizontalAlignment="Left" Margin="66,218,0,0" VerticalAlignment="Top"/>
 
+            <lvc:CartesianChart DisableAnimations="True" Series="{Binding DataNetworkInterface.SeriesCollection}" Margin="312,136,90,53">
+            </lvc:CartesianChart>
             <!--
             The Mahapps Gray10 color represents where you should place your content.
             Place your content here.
