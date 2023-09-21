@@ -27,13 +27,22 @@
             Grid.Row="1"
             Margin="{StaticResource MediumLeftRightMargin}"
             Background="{DynamicResource MahApps.Brushes.Gray10}">
-            <mah:SplitButton x:Name="networkInterfaceSelector" HorizontalAlignment="Left" Margin="40,22,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding DataNetworkInterface.InterfaceList}" DisplayMemberPath="Value" SelectedValuePath="Key" DropDownOpened="networkInterfaceSelector_DropDownOpened"/>
+            <mah:SplitButton x:Name="networkInterfaceSelector" HorizontalAlignment="Left" Margin="40,22,0,0" VerticalAlignment="Top" Width="149" ItemsSource="{Binding DataNetworkInterface.InterfaceList}" SelectedIndex="0" DisplayMemberPath="Value" SelectedValuePath="Key" SelectionChanged="networkInterfaceSelector_SelectionChanged"/>
+            <Button x:Name="refresh" Content="refresh" HorizontalAlignment="Left" Margin="194,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.255,0.426" Click="refresh_Click"/>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="293" Margin="40,71,0,0" VerticalAlignment="Top" Width="665"/>
+            <TextBox x:Name="uploadRate" HorizontalAlignment="Left" Margin="119,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding DataNetworkInterface.SendRate}"/>
+            <TextBox x:Name="downloadRate" HorizontalAlignment="Left" Margin="119,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding DataNetworkInterface.ReceivedRate}" />
+            <TextBox x:Name="selectedInterfaceName" HorizontalAlignment="Left" Margin="54,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="227" Height="39" FontSize="20" Text="{Binding DataNetworkInterface.SelectedInterface, Mode=TwoWay}"  SnapsToDevicePixels="True" BorderThickness="0,0,0,0"/>
+            <Label x:Name="sentLabel" Content="Sent:" HorizontalAlignment="Left" Margin="66,136,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="receivedLabel" Content="Received:" HorizontalAlignment="Left" Margin="55,175,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="totalTraffic" HorizontalAlignment="Left" Margin="119,218,0,0" TextWrapping="Wrap" Text="{Binding DataNetworkInterface.TotalData}" VerticalAlignment="Top" Width="120"/>
+            <Label x:Name="totalTrafficLabel" Content="Total:" HorizontalAlignment="Left" Margin="66,218,0,0" VerticalAlignment="Top"/>
 
             <!--
             The Mahapps Gray10 color represents where you should place your content.
             Place your content here.
             -->
-            
+
         </Grid>
     </Grid>
 </Page>

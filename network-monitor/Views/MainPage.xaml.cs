@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows.Controls;
-
+using MahApps.Metro.Controls;
 using network_monitor.ViewModels;
 
 namespace network_monitor.Views;
@@ -11,14 +11,24 @@ public partial class MainPage : Page
     {
         InitializeComponent();
         DataContext = viewModel;
+        viewModel.DataNetworkInterface.RefreshDeviceList();
     }
 
-    private void networkInterfaceSelector_DropDownOpened(object sender, EventArgs e)
+    private void networkInterfaceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Debug.WriteLine("lllll");
         if (DataContext is MainViewModel viewModel)
         {
-            Debug.WriteLine("oooo");
+            SplitButton list = (SplitButton)sender;
+            viewModel.DataNetworkInterface.SelectedInterface = list.SelectedValue.ToString();
+            Debug.WriteLine(viewModel.DataNetworkInterface.SelectedInterface);
+            viewModel.DataNetworkInterface.StartMonitoringTraffic();
+        }
+    }
+
+    private void refresh_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        if (DataContext is MainViewModel viewModel)
+        {
             viewModel.DataNetworkInterface.RefreshDeviceList();
         }
     }
