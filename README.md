@@ -1,6 +1,7 @@
 # Network Monitor
 ## Overview
 Network Monitor is a WPF GUI application developed in C# that uses Windows Management Instrumentation (WMI) to retrieve network interface information and real-time network traffic data. It provides a user-friendly interface for monitoring and visualizing network traffic rates in kilobytes per second (KB/s).
+![](https://hackmd.io/_uploads/ByUp8utJp.gif)
 
 ## Features
 
